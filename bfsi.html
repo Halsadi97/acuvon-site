@@ -263,7 +263,7 @@
   if(dots.length){var secs=dots.map(function(d){return document.querySelector(d.getAttribute('href'))});
     addEventListener('scroll',function(){var y=scrollY+innerHeight*0.35,idx=0;
       secs.forEach(function(s,i){if(s&&s.offsetTop<=y)idx=i});
-      dots.forEach(function(d,i){d.classList.toggle('active',i===idx})});});}
+      dots.forEach(function(d,i){d.classList.toggle('active',i===idx)});});}
   var fb=document.getElementById('formBtn');
   if(fb)fb.addEventListener('click',function(){alert('Thank you \u2014 on the live site this submits to Acuvon. For now this is a front-end demo.');});
 </script>
