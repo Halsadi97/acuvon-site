@@ -275,16 +275,27 @@
   .share-links a,.share-links button{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--bg);border:1px solid var(--line);color:#fff;padding:15px 18px;font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s}
   .share-links a:hover,.share-links button:hover{border-color:var(--red);color:var(--red);transform:translateX(4px)}
   .share-links svg{width:18px;height:18px;fill:currentColor;flex:0 0 auto}
+
+  .curtain{position:fixed;inset:0;z-index:9999;background:var(--red);display:flex;align-items:center;justify-content:center;transform:translateY(0);transition:transform .62s cubic-bezier(.76,0,.24,1)}
+  .curtain.lift{transform:translateY(-100%);pointer-events:none}
+  .curtain-mark{font-family:var(--display);font-weight:800;font-size:clamp(34px,7vw,66px);color:#fff;letter-spacing:-.02em}
+  .curtain-mark .o-dot{position:relative;display:inline-block}
+  .curtain-mark .o-dot::before{content:"";position:absolute;top:-.16em;left:50%;transform:translateX(-50%);width:.13em;height:.13em;border-radius:50%;background:#141414}
+  .cur,.cur-dot{position:fixed;top:0;left:0;z-index:9997;pointer-events:none;border-radius:50%;mix-blend-mode:difference;will-change:transform}
+  .cur{width:38px;height:38px;border:1.5px solid #fff;margin:-19px 0 0 -19px;transition:width .25s,height .25s,margin .25s,background .25s}
+  .cur-dot{width:6px;height:6px;background:#fff;margin:-3px 0 0 -3px}
+  .cur.hover{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(255,255,255,.14)}
+  body.has-cursor{cursor:none}body.has-cursor a,body.has-cursor button,body.has-cursor input,body.has-cursor textarea{cursor:none}
+  .reveal-wipe{opacity:0;clip-path:inset(0 100% 0 0);transition:opacity .7s ease,clip-path .9s cubic-bezier(.6,0,.1,1)}
+  .reveal-wipe.in{opacity:1;clip-path:inset(0 0 0 0)}
+  @media(prefers-reduced-motion:reduce){.curtain{display:none}.cur,.cur-dot{display:none}body.has-cursor{cursor:auto}.reveal-wipe{opacity:1;clip-path:none}}
 </style>
 </head>
 <body>
 <div class="grain"></div>
-
-<!-- LOADER -->
-<div class="loader" id="loader">
-  <div class="ring"></div>
-  <div class="mark">acuv<span class="o">o</span>n</div>
-</div>
+<div class="curtain" id="curtain"><span class="curtain-mark">acuv<span class="o-dot">o</span>n</span></div>
+<noscript><style>.curtain{display:none!important}</style></noscript>
+<div class="cur" id="cur"></div><div class="cur-dot" id="curDot"></div>
 
 <div class="thread" id="thread"></div>
 
@@ -355,7 +366,7 @@
 <section class="valueprop pad" id="value">
   <div class="wrap">
     <div class="section-label reveal">Our Value Proposition</div>
-    <h2 class="section-title reveal">Three commitments that define how we work alongside our clients</h2>
+    <h2 class="section-title reveal-wipe">Three commitments that define how we work alongside our clients</h2>
     <div class="vp-grid">
       <div class="vp reveal"><div class="diamond"><span>1</span></div><h3>Implementation Partner</h3><p>We work side by side with clients to help turn ideas into reality.</p></div>
       <div class="vp reveal"><div class="diamond"><span>2</span></div><h3>Partnership Ecosystem</h3><p>We bring technology companies and SMEs together to provide holistic solutions to clients.</p></div>
@@ -389,7 +400,7 @@
 <section class="offerings pad" id="offerings">
   <div class="wrap">
     <div class="section-label reveal">Offering</div>
-    <h2 class="section-title reveal">We build capabilities that enable clients to achieve sustainable advantage and stay ahead.</h2>
+    <h2 class="section-title reveal-wipe">We build capabilities that enable clients to achieve sustainable advantage and stay ahead.</h2>
     <div class="off-grid">
       <a class="off-card reveal tilt" href="business-accelerator.html"><div class="glow"></div><div class="ghost">01</div><div class="off-content"><div class="off-num">01 / Growth</div><h3>Business Accelerator</h3><p>For early-stage and growth companies, we help make the right choices and reach goals in an accelerated manner.</p><span class="off-link">Explore <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></div></a>
       <a class="off-card reveal tilt" href="corporate-turnaround.html"><div class="glow"></div><div class="ghost">02</div><div class="off-content"><div class="off-num">02 / Recovery</div><h3>Corporate Turnaround</h3><p>Our turnaround program loads the dice in favour of a successful return to solvency and normality.</p><span class="off-link">Explore <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></div></a>
@@ -403,7 +414,7 @@
 <section class="pad" id="verticals">
   <div class="wrap">
     <div class="section-label reveal">Verticals</div>
-    <h2 class="section-title reveal">Deep sector expertise where transformation is constant</h2>
+    <h2 class="section-title reveal-wipe">Deep sector expertise where transformation is constant</h2>
     <div class="vert-tabs reveal">
       <button class="vert-tab active" data-vert="retail">Retail</button>
       <button class="vert-tab" data-vert="healthcare">Healthcare &amp; Pharma</button>
@@ -428,7 +439,7 @@
 <section class="insights pad" id="insights">
   <div class="wrap">
     <div class="section-label reveal">Insights</div>
-    <h2 class="section-title reveal">Case studies and perspectives from our engagements</h2>
+    <h2 class="section-title reveal-wipe">Case studies and perspectives from our engagements</h2>
     <a class="insight-card reveal" href="case-pizza-qsr.html" style="color:inherit">
       <div class="insight-tag"><div class="k">Case Study</div><div class="d">May 10, 2020</div></div>
       <div class="insight-body"><h3>ZBB and BSC implementation for an international pizza QSR chain</h3><span class="off-link">Know More <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></div>
@@ -440,7 +451,7 @@
 <section class="pad" id="contact">
   <div class="wrap">
     <div class="section-label reveal">Contact Us</div>
-    <h2 class="section-title reveal">Let&rsquo;s build sharper outcomes together</h2>
+    <h2 class="section-title reveal-wipe">Let&rsquo;s build sharper outcomes together</h2>
     <div class="contact-grid">
       <div class="offices reveal">
         <div class="office"><h4>India &middot; Corporate Office</h4><p>18th Floor, Berger Delhi One, C-001/A2, Sector 16B, Noida &ndash; 201301, U.P.</p></div>
@@ -487,12 +498,7 @@
   var finePointer = matchMedia('(pointer: fine)').matches;
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // loader
-  (function(){
-    var l = document.getElementById('loader');
-    if(reduce){ l.classList.add('done'); return; }
-    setTimeout(function(){ l.classList.add('done'); }, 1500);
-  })();
+  
 
   // marquee build
   (function(){
@@ -559,7 +565,7 @@
       }
     });
   }, { threshold: 0.18 });
-  document.querySelectorAll('.reveal').forEach(function(el,i){
+  document.querySelectorAll('.reveal,.reveal-wipe').forEach(function(el,i){
     el.style.transitionDelay = ((i%4)*0.07) + 's';
     io.observe(el);
   });
@@ -709,7 +715,40 @@
 
   addEventListener('keydown',function(e){if(e.key==='Escape'){closeSearch();closeShare();closeMenu();}});
   // reveal fallback safety
-  setTimeout(function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(e){e.classList.add('in');});},2600);
+  setTimeout(function(){document.querySelectorAll('.reveal:not(.in),.reveal-wipe:not(.in)').forEach(function(e){e.classList.add('in');});},2600);
+
+
+  // ---------- CURTAIN PAGE TRANSITION ----------
+  var curtain=document.getElementById('curtain');
+  if(curtain){
+    if(reduce){curtain.style.display='none';}
+    else{
+      var liftC=function(){curtain.classList.add('lift');};
+      if(document.readyState==='complete')setTimeout(liftC,350); else addEventListener('load',function(){setTimeout(liftC,350);});
+      setTimeout(liftC,1600);
+      addEventListener('pageshow',function(ev){if(ev.persisted)curtain.classList.add('lift');});
+      document.addEventListener('click',function(e){
+        var a=e.target.closest?e.target.closest('a'):null; if(!a)return;
+        var href=a.getAttribute('href'); if(!href||href.charAt(0)==='#')return;
+        if(a.target==='_blank'||a.hasAttribute('download'))return;
+        if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+        if(!/^[a-z0-9_\-]+\.html(\?|#|$)/i.test(href))return;
+        e.preventDefault(); curtain.classList.remove('lift');
+        setTimeout(function(){location.href=href;},540);
+      });
+    }
+  }
+  // ---------- CUSTOM CURSOR ----------
+  if(finePointer&&!reduce){
+    var cur=document.getElementById('cur'),curDot=document.getElementById('curDot');
+    document.body.classList.add('has-cursor');
+    var cx=innerWidth/2,cy=innerHeight/2,tx=cx,ty=cy;
+    addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;curDot.style.transform='translate('+tx+'px,'+ty+'px)';});
+    (function loop(){cx+=(tx-cx)*0.18;cy+=(ty-cy)*0.18;cur.style.transform='translate('+cx+'px,'+cy+'px)';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,.tab,.vert-tab,.off-card,input,textarea').forEach(function(el){
+      el.addEventListener('mouseenter',function(){cur.classList.add('hover');});
+      el.addEventListener('mouseleave',function(){cur.classList.remove('hover');});});
+  }
 
 </script>
 
