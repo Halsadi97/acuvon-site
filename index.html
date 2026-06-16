@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Acuvon – Business Consulting</title>
+<meta name="description" content="Acuvon is a global management consulting firm — sharpness of vision and thoughts converted into reality for clients across the Middle East, India and beyond.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#222222;
+    --bg-2:#1e1e1e;
+    --bg-3:#2a2a2a;
+    --bg-card:#262626;
+    --red:#cc0000;
+    --red-bright:#e60000;
+    --white:#ffffff;
+    --grey:#a8a8a8;
+    --grey-dim:#777777;
+    --line:#3a3a3a;
+    --display:'Archivo',sans-serif;
+    --body:'Inter',sans-serif;
+    --maxw:1280px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    background:var(--bg);
+    color:var(--white);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:var(--red);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;
+    transition:background .3s ease,padding .3s ease;
+  }
+  .topbar.scrolled{background:rgba(20,20,20,.92);backdrop-filter:blur(10px);padding:14px 32px;border-bottom:1px solid var(--line)}
+
+  .menu-btn{display:flex;align-items:center;gap:12px;cursor:pointer;background:none;border:none;color:#fff;font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  .menu-btn .bars{display:inline-flex;flex-direction:column;gap:4px}
+  .menu-btn .bars span{width:24px;height:2px;background:#fff;transition:.3s}
+  .menu-btn:hover .bars span{background:var(--red)}
+
+  .logo{
+    position:absolute;left:50%;transform:translateX(-50%);
+    font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.01em;color:#fff;
+    display:inline-block;
+  }
+  .logo .o-dot{position:relative;display:inline-block}
+  .logo .o-dot::before{
+    content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    width:7px;height:7px;border-radius:50%;background:var(--red);
+  }
+
+  .top-actions{display:flex;align-items:center;gap:22px}
+  .top-actions button{background:none;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;gap:7px;font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+  .top-actions button svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2}
+  .top-actions button:hover{color:var(--red)}
+  .top-actions button:hover svg{stroke:var(--red)}
+
+  /* ---------- SLIDE MENU ---------- */
+  .nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:.35s;z-index:200}
+  .nav-overlay.open{opacity:1;visibility:visible}
+  .nav-panel{
+    position:fixed;top:0;left:0;bottom:0;width:420px;max-width:88vw;background:var(--bg-2);z-index:201;
+    transform:translateX(-100%);transition:transform .4s cubic-bezier(.7,0,.3,1);
+    padding:34px 40px;overflow-y:auto;border-right:3px solid var(--red);
+  }
+  .nav-panel.open{transform:translateX(0)}
+  .nav-close{background:none;border:none;color:#fff;font-size:30px;cursor:pointer;line-height:1;margin-bottom:30px}
+  .nav-close:hover{color:var(--red)}
+  .nav-panel ul{list-style:none}
+  .nav-panel>ul>li{border-bottom:1px solid var(--line)}
+  .nav-panel>ul>li>a,.nav-group-label{
+    display:block;font-family:var(--display);font-weight:700;font-size:19px;padding:16px 0;color:#fff;cursor:pointer;
+    text-transform:uppercase;letter-spacing:.04em;
+  }
+  .nav-panel>ul>li>a:hover,.nav-group-label:hover{color:var(--red);padding-left:8px;transition:.2s}
+  .nav-sub{padding-left:14px;padding-bottom:10px}
+  .nav-sub li a{display:block;padding:8px 0;color:var(--grey);font-size:15px;border-left:2px solid var(--line);padding-left:14px}
+  .nav-sub li a:hover{color:#fff;border-left-color:var(--red)}
+
+  /* ---------- DOT NAV ---------- */
+  .dotnav{position:fixed;right:30px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:16px}
+  .dotnav a{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.35);transition:.25s;position:relative}
+  .dotnav a:hover{background:#fff}
+  .dotnav a.active{background:var(--red);box-shadow:0 0 0 4px rgba(204,0,0,.25)}
+  .dotnav a span{position:absolute;right:22px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:.25s;font-family:var(--display);font-weight:600;color:var(--grey)}
+  .dotnav a:hover span{opacity:1}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;position:relative;
+    background:
+      linear-gradient(115deg,rgba(20,20,20,.94) 0%,rgba(30,30,30,.78) 55%,rgba(20,20,20,.55) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E"),
+      radial-gradient(120% 120% at 70% 30%,#2d2d2d 0%,#1c1c1c 70%);
+    background-size:cover,260px 260px,cover;
+  }
+  .hero::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--red)}
+  .hero-inner{max-width:860px}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:26px}
+  .eyebrow::before{content:"";width:38px;height:2px;background:var(--red)}
+  .hero h1{
+    font-family:var(--display);font-weight:800;line-height:1.06;
+    font-size:clamp(34px,5.2vw,62px);letter-spacing:-.015em;margin-bottom:26px;
+  }
+  .hero h1 .hl{color:var(--red)}
+  .hero p{font-size:clamp(16px,1.5vw,19px);color:var(--grey);max-width:600px;margin-bottom:38px}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:16px 32px;cursor:pointer;
+    border:2px solid #fff;color:#fff;background:transparent;transition:.25s;
+  }
+  .btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5;transition:.25s}
+  .btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+  .btn:hover svg{transform:translateX(4px)}
+  .btn-red{border-color:var(--red);background:var(--red)}
+  .btn-red:hover{background:var(--red-bright);border-color:var(--red-bright)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative}
+  .pad{padding:110px 0}
+  .section-label{display:flex;align-items:center;gap:16px;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+  .section-label::before{content:"";width:30px;height:2px;background:var(--red)}
+  .section-title{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,40px);line-height:1.12;letter-spacing:-.01em;max-width:820px;margin-bottom:14px}
+  .section-title.center{margin-left:auto;margin-right:auto;text-align:center}
+
+  /* ---------- VALUE PROP ---------- */
+  .valueprop{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:50px}
+  .vp{padding:0 40px;border-left:1px solid var(--line)}
+  .vp:first-child{border-left:none;padding-left:0}
+  .vp:last-child{padding-right:0}
+  .diamond{width:64px;height:64px;border:2px solid var(--red);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;margin-bottom:30px;transition:.3s}
+  .diamond span{transform:rotate(-45deg);font-family:var(--display);font-weight:800;font-size:24px;color:#fff}
+  .vp:hover .diamond{background:var(--red);box-shadow:0 0 0 6px rgba(204,0,0,.15)}
+  .vp h3{font-family:var(--display);font-weight:700;font-size:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.02em}
+  .vp p{color:var(--grey);font-size:15px}
+
+  /* ---------- STATS / ABOUT ---------- */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-bottom:60px}
+  .stat{position:relative;padding-left:22px}
+  .stat::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--red)}
+  .stat .num{font-family:var(--display);font-weight:900;font-size:clamp(40px,5vw,60px);line-height:1;letter-spacing:-.02em}
+  .stat .num .plus{color:var(--red)}
+  .stat .lbl{color:var(--grey);font-size:14px;margin-top:8px}
+  .about-flex{display:flex;gap:60px;align-items:flex-start;flex-wrap:wrap}
+  .about-quote{flex:1 1 480px;font-family:var(--display);font-weight:600;font-size:clamp(20px,2.3vw,28px);line-height:1.35}
+  .about-quote .acc{color:var(--red)}
+  .about-card{flex:0 0 320px;background:var(--bg-card);border:1px solid var(--line);border-top:3px solid var(--red);padding:36px}
+  .about-card h4{font-family:var(--display);font-weight:700;font-size:22px;margin-bottom:10px}
+  .about-card p{color:var(--grey);font-size:15px;margin-bottom:22px}
+
+  /* ---------- OFFERINGS ---------- */
+  .offerings{background:var(--bg-2)}
+  .off-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:50px}
+  .off-card{
+    background:var(--bg-card);border:1px solid var(--line);padding:40px;position:relative;overflow:hidden;
+    transition:.3s;cursor:pointer;
+  }
+  .off-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--red);transition:.3s}
+  .off-card:hover{transform:translateY(-4px);border-color:var(--red);background:#2c2424}
+  .off-card:hover::before{width:5px}
+  .off-num{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.2em;color:var(--red);margin-bottom:18px}
+  .off-card h3{font-family:var(--display);font-weight:700;font-size:24px;margin-bottom:14px}
+  .off-card p{color:var(--grey);font-size:15px;margin-bottom:24px}
+  .off-link{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+  .off-link svg{width:14px;height:14px;stroke:var(--red);fill:none;stroke-width:2.5;transition:.25s}
+  .off-card:hover .off-link svg{transform:translateX(5px)}
+
+  /* ---------- VERTICALS ---------- */
+  .vert-tabs{display:flex;gap:0;margin-top:50px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .vert-tab{
+    font-family:var(--display);font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.03em;
+    padding:18px 30px;background:none;border:none;color:var(--grey);cursor:pointer;position:relative;transition:.2s;
+  }
+  .vert-tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--red);transform:scaleX(0);transition:.25s}
+  .vert-tab:hover{color:#fff}
+  .vert-tab.active{color:#fff}
+  .vert-tab.active::after{transform:scaleX(1)}
+  .vert-panel{display:none;padding:44px 0;animation:fade .4s ease}
+  .vert-panel.active{display:flex;gap:50px;flex-wrap:wrap;align-items:center}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .vert-text{flex:1 1 460px}
+  .vert-text h3{font-family:var(--display);font-weight:800;font-size:30px;margin-bottom:18px}
+  .vert-text p{color:var(--grey);font-size:16px;margin-bottom:26px}
+  .vert-visual{flex:0 0 260px;height:200px;border:2px solid var(--red);display:flex;align-items:center;justify-content:center;background:var(--bg-card)}
+  .vert-visual span{font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:20px}
+
+  /* ---------- INSIGHTS ---------- */
+  .insights{background:var(--bg-2)}
+  .insight-card{display:flex;gap:0;background:var(--bg-card);border:1px solid var(--line);margin-top:46px;flex-wrap:wrap}
+  .insight-tag{flex:0 0 230px;background:var(--red);padding:40px;display:flex;flex-direction:column;justify-content:center}
+  .insight-tag .k{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+  .insight-tag .d{font-size:14px;margin-top:8px;opacity:.85}
+  .insight-body{flex:1 1 400px;padding:40px}
+  .insight-body h3{font-family:var(--display);font-weight:700;font-size:24px;margin-bottom:24px;line-height:1.25}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--bg)}
+  .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;margin-top:50px}
+  .offices{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  .office{border-left:3px solid var(--red);padding-left:18px}
+  .office h4{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .office p{color:var(--grey);font-size:14px}
+  .contact-side{background:var(--bg-card);border:1px solid var(--line);border-top:3px solid var(--red);padding:36px}
+  .contact-side .row{margin-bottom:22px}
+  .contact-side .row span{display:block;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+  .contact-side .row a{font-size:16px;color:#fff}
+  .contact-side .row a:hover{color:var(--red)}
+
+  .cform{margin-top:60px;background:var(--bg-2);border:1px solid var(--line);padding:46px;max-width:760px}
+  .cform h3{font-family:var(--display);font-weight:700;font-size:20px;margin-bottom:24px}
+  .cform .frow{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .cform input,.cform textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:#fff;padding:14px 16px;font-family:var(--body);font-size:15px;transition:.2s}
+  .cform input:focus,.cform textarea:focus{outline:none;border-color:var(--red)}
+  .cform textarea{margin-bottom:18px;resize:vertical;min-height:110px}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--bg-2);border-top:1px solid var(--line);padding:50px 0 30px}
+  .foot-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid var(--line)}
+  .foot-logo{font-family:var(--display);font-weight:800;font-size:24px}
+  .foot-social{display:flex;gap:14px}
+  .foot-social a{width:40px;height:40px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:.25s}
+  .foot-social a:hover{border-color:var(--red);background:var(--red)}
+  .foot-social svg{width:18px;height:18px;fill:#fff}
+  .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:24px;color:var(--grey-dim);font-size:13px}
+  .foot-bottom a{margin-left:20px;color:var(--grey-dim)}
+  .foot-bottom a:hover{color:var(--red)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:1024px){
+    .dotnav{display:none}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:40px 30px}
+    .vp-grid{grid-template-columns:1fr;gap:40px}
+    .vp{border-left:none;border-top:1px solid var(--line);padding:32px 0 0}
+    .vp:first-child{border-top:none;padding-top:0}
+    .off-grid{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr;gap:36px}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 20px}
+    .topbar{padding:16px 20px}
+    .logo{font-size:22px}
+    .top-actions .lbl{display:none}
+    .pad{padding:70px 0}
+    .offices{grid-template-columns:1fr}
+    .cform .frow{grid-template-columns:1fr}
+    .insight-tag{flex-basis:100%}
+    .hero::after{width:3px}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar" id="topbar">
+  <button class="menu-btn" id="menuOpen" aria-label="Open menu">
+    <span class="bars"><span></span><span></span><span></span></span>
+    <span>Menu</span>
+  </button>
+  <a href="#hero" class="logo">acuv<span class="o-dot">o</span>n</a>
+  <div class="top-actions">
+    <button aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span class="lbl">Search</span></button>
+    <button aria-label="Share"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg><span class="lbl">Share</span></button>
+  </div>
+</header>
+
+<!-- SLIDE NAV -->
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-panel" id="navPanel" aria-label="Main">
+  <button class="nav-close" id="navClose" aria-label="Close menu">&times;</button>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li>
+      <div class="nav-group-label">About Us</div>
+      <ul class="nav-sub">
+        <li><a href="overview.html">Overview</a></li>
+        <li><a href="ourpeople.html">Our People</a></li>
+        <li><a href="csr.html">CSR</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="nav-group-label">Offerings</div>
+      <ul class="nav-sub">
+        <li><a href="business-accelerator.html">Business Accelerator</a></li>
+        <li><a href="corporate-turnaround.html">Corporate Turnaround</a></li>
+        <li><a href="performance-improvement.html">Performance Improvement</a></li>
+        <li><a href="transaction-advisory.html">Transaction Advisory</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="nav-group-label">Verticals</div>
+      <ul class="nav-sub">
+        <li><a href="retail.html">Retail</a></li>
+        <li><a href="healthcare-pharmaceutical.html">Healthcare &amp; Pharmaceutical</a></li>
+        <li><a href="bfsi.html">BFSI</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="nav-group-label">Solutions</div>
+      <ul class="nav-sub">
+        <li><a href="zero-based-budgeting.html">Zero Based Budgeting</a></li>
+        <li><a href="performance-management-system.html">Performance Management System</a></li>
+      </ul>
+    </li>
+    <li><a href="insight.html">Insights</a></li>
+    <li><a href="contact-us.html">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- DOT NAV -->
+<div class="dotnav" id="dotnav">
+  <a href="#hero" data-dot class="active"><span>Home</span></a>
+  <a href="#value" data-dot><span>Value</span></a>
+  <a href="#about" data-dot><span>About</span></a>
+  <a href="#offerings" data-dot><span>Offerings</span></a>
+  <a href="#verticals" data-dot><span>Verticals</span></a>
+  <a href="#insights" data-dot><span>Insights</span></a>
+  <a href="#contact" data-dot><span>Contact</span></a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Solutions · PMS</div>
+    <h1>Performance Management System: a <span class="hl">scientific</span> approach to implementing strategy</h1>
+    <p>Acuvon offers an array of performance management methodologies for various use cases that connect an organization's overall strategy with its operations.</p>
+    <a href="performance-management-system.html" class="btn">Know More
+      <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- VALUE PROPOSITION -->
+<section class="valueprop pad" id="value">
+  <div class="wrap">
+    <div class="section-label">Our Value Proposition</div>
+    <h2 class="section-title">Three commitments that define how we work alongside our clients</h2>
+    <div class="vp-grid">
+      <div class="vp">
+        <div class="diamond"><span>1</span></div>
+        <h3>Implementation Partner</h3>
+        <p>We work side by side with clients to help turn ideas into reality.</p>
+      </div>
+      <div class="vp">
+        <div class="diamond"><span>2</span></div>
+        <h3>Partnership Ecosystem</h3>
+        <p>We bring technology companies and SMEs together as partners to provide holistic solutions to clients.</p>
+      </div>
+      <div class="vp">
+        <div class="diamond"><span>3</span></div>
+        <h3>Global Experience + Local Flavor</h3>
+        <p>We provide global expertise tailored to local needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / STATS -->
+<section class="pad" id="about">
+  <div class="wrap">
+    <div class="section-label">About Us</div>
+    <div class="stats-grid">
+      <div class="stat"><div class="num">200<span class="plus">+</span></div><div class="lbl">Clients: Global 1000, MNCs, Conglomerates</div></div>
+      <div class="stat"><div class="num">18<span class="plus">+</span></div><div class="lbl">Years experience in the Middle East</div></div>
+      <div class="stat"><div class="num">350<span class="plus">+</span></div><div class="lbl">Projects delivered</div></div>
+      <div class="stat"><div class="num">70<span class="plus">+</span></div><div class="lbl">Consultants</div></div>
+    </div>
+    <div class="about-flex">
+      <div class="about-quote">
+        Acuvon is derived from the word <span class="acc">'Acuity'</span> — sharpness of vision and thoughts — which is what we strive to achieve for our clients and convert into reality.
+      </div>
+      <div class="about-card">
+        <h4>Need advice?</h4>
+        <p>Reach out to us with your queries and our team will get back to you.</p>
+        <a href="#contact" class="btn btn-red">Contact Us
+          <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERINGS -->
+<section class="offerings pad" id="offerings">
+  <div class="wrap">
+    <div class="section-label">Offering</div>
+    <h2 class="section-title">We build capabilities that enable our clients to achieve sustainable advantage and stay ahead, through customized service offerings.</h2>
+    <div class="off-grid">
+      <a class="off-card" href="business-accelerator.html">
+        <div class="off-num">01 — Growth</div>
+        <h3>Business Accelerator</h3>
+        <p>For companies in early-stage or growth phases, we help them make the right business choices and achieve goals in an accelerated manner.</p>
+        <span class="off-link">Explore <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
+      </a>
+      <a class="off-card" href="corporate-turnaround.html">
+        <div class="off-num">02 — Recovery</div>
+        <h3>Corporate Turnaround</h3>
+        <p>Ailing companies need specialized treatment for survival. Our corporate turnaround program loads the dice in favour of a successful turnaround.</p>
+        <span class="off-link">Explore <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
+      </a>
+      <a class="off-card" href="performance-improvement.html">
+        <div class="off-num">03 — Performance</div>
+        <h3>Performance Improvement</h3>
+        <p>In a dynamic environment where business models continue to evolve, we help companies stay on the path of high profitability and deliver shareholder value.</p>
+        <span class="off-link">Explore <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
+      </a>
+      <a class="off-card" href="transaction-advisory.html">
+        <div class="off-num">04 — Transactions</div>
+        <h3>Transaction Advisory</h3>
+        <p>For both buy side and sell side, we handhold our clients throughout the transaction lifecycle to derive maximum value and synergies.</p>
+        <span class="off-link">Explore <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS -->
+<section class="pad" id="verticals">
+  <div class="wrap">
+    <div class="section-label">Verticals</div>
+    <h2 class="section-title">Deep sector expertise where transformation is constant</h2>
+    <div class="vert-tabs">
+      <button class="vert-tab active" data-vert="retail">Retail</button>
+      <button class="vert-tab" data-vert="healthcare">Healthcare &amp; Pharma</button>
+      <button class="vert-tab" data-vert="bfsi">BFSI</button>
+    </div>
+
+    <div class="vert-panel active" id="retail">
+      <div class="vert-text">
+        <h3>Retail</h3>
+        <p>Retail is a dynamic sector in a constant transformation phase, with new formats, technologies and business models taking shape every day. In such a challenging environment there is a growing need to reduce cost and enhance the efficiency of operations.</p>
+        <a href="retail.html" class="btn">Know More <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></a>
+      </div>
+      <div class="vert-visual"><span>Retail</span></div>
+    </div>
+
+    <div class="vert-panel" id="healthcare">
+      <div class="vert-text">
+        <h3>Healthcare &amp; Pharmaceutical</h3>
+        <p>With patient centricity, digital transformation and regulatory requirements at the top of the agenda, healthcare CEOs need to interact with all stakeholders to establish a smart health community.</p>
+        <a href="healthcare-pharmaceutical.html" class="btn">Know More <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></a>
+      </div>
+      <div class="vert-visual"><span>Healthcare<br>&amp; Pharma</span></div>
+    </div>
+
+    <div class="vert-panel" id="bfsi">
+      <div class="vert-text">
+        <h3>BFSI</h3>
+        <p>With the rapid adoption of technology, the BFSI space is undergoing dynamic changes that are creating new opportunities and business models for organizations to explore.</p>
+        <a href="bfsi.html" class="btn">Know More <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></a>
+      </div>
+      <div class="vert-visual"><span>BFSI</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section class="insights pad" id="insights">
+  <div class="wrap">
+    <div class="section-label">Insights</div>
+    <h2 class="section-title">Case studies and perspectives from our engagements</h2>
+    <div class="insight-card">
+      <div class="insight-tag">
+        <div class="k">Case Study</div>
+        <div class="d">May 10, 2020</div>
+      </div>
+      <div class="insight-body">
+        <h3>ZBB and BSC implementation for an international pizza QSR chain</h3>
+        <a href="case-pizza-qsr.html" class="btn">Know More <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact pad" id="contact">
+  <div class="wrap">
+    <div class="section-label">Contact Us</div>
+    <h2 class="section-title">Let's build sharper outcomes together</h2>
+    <div class="contact-grid">
+      <div class="offices">
+        <div class="office">
+          <h4>India · Corporate Office</h4>
+          <p>18th Floor, Berger Delhi One, C-001/A2, Sector 16B, Noida – 201301, U.P.</p>
+        </div>
+        <div class="office">
+          <h4>KSA · Regional Office</h4>
+          <p>2689 Mousa ibn Nasir, 6780 Al Olaya District, Riyadh 12241</p>
+        </div>
+        <div class="office">
+          <h4>UAE · Branch Office</h4>
+          <p>Espada Business Center, 502 Rasis Business Centre, Al Barsha 1, Dubai</p>
+        </div>
+        <div class="office">
+          <h4>Careers</h4>
+          <p>Be a part of the journey — <a href="mailto:career@acuvon.com" style="color:var(--red)">career@acuvon.com</a></p>
+        </div>
+      </div>
+      <div class="contact-side">
+        <div class="row"><span>Email</span><a href="mailto:info@acuvon.com">info@acuvon.com</a></div>
+        <div class="row"><span>Phone</span><a href="tel:+919739430007">+91 97394 30007</a></div>
+        <div class="row"><span>Careers</span><a href="mailto:career@acuvon.com">career@acuvon.com</a></div>
+      </div>
+    </div>
+
+    <div class="cform">
+      <h3>Please fill out this form and we will get in touch with you shortly.</h3>
+      <div class="frow">
+        <input type="text" placeholder="Full name" aria-label="Full name">
+        <input type="email" placeholder="Email address" aria-label="Email">
+      </div>
+      <div class="frow">
+        <input type="text" placeholder="Company" aria-label="Company">
+        <input type="tel" placeholder="Phone" aria-label="Phone">
+      </div>
+      <textarea placeholder="How can we help?" aria-label="Message"></textarea>
+      <button type="button" class="btn btn-red" id="formBtn">Send Enquiry
+        <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-logo">acuv<span class="o-dot" style="position:relative">o</span>n</div>
+      <div class="foot-social">
+        <a href="https://www.linkedin.com/company/acuvon/about/" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 0 1 2.5 6 2.5 2.5 0 0 1 0 3.5 2.5 2.5 0 0 1 2.5 1 2.5 2.5 0 0 1 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.37-3.9-2.38 0-2.74 1.85-2.74 3.77V24h-4V8z"/></svg></a>
+        <a href="https://www.youtube.com/channel/UCbBKy2kzi2ie7aHNzckPBrw" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+        <a href="https://www.glassdoor.co.in/Overview/Working-at-Acuvon-Consulting-EI_IE2924278.11,28.htm" aria-label="Glassdoor"><svg viewBox="0 0 24 24"><path d="M18 13.5v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h5v-2H6a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-5h-2z"/></svg></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© Acuvon <span id="yr"></span> — Sharpness of vision and thoughts, converted into reality.</div>
+      <div>
+        <a href="https://acuvon.com/sitemap/">Sitemap</a>
+        <a href="https://acuvon.com/privacy-policy/">Privacy Policy</a>
+        <a href="https://acuvon.com/?lang=ar">العربية</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // sticky topbar
+  const topbar = document.getElementById('topbar');
+  addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 40));
+
+  // slide menu
+  const overlay = document.getElementById('navOverlay');
+  const panel = document.getElementById('navPanel');
+  const openMenu = () => { overlay.classList.add('open'); panel.classList.add('open'); };
+  const closeMenu = () => { overlay.classList.remove('open'); panel.classList.remove('open'); };
+  document.getElementById('menuOpen').onclick = openMenu;
+  document.getElementById('navClose').onclick = closeMenu;
+  overlay.onclick = closeMenu;
+  panel.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', closeMenu));
+
+  // verticals tabs
+  document.querySelectorAll('.vert-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.vert-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.vert-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.vert).classList.add('active');
+    });
+  });
+
+  // dot nav active state via scroll spy
+  const dots = [...document.querySelectorAll('[data-dot]')];
+  const sections = dots.map(d => document.querySelector(d.getAttribute('href')));
+  addEventListener('scroll', () => {
+    const y = scrollY + innerHeight * 0.35;
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.offsetTop <= y) idx = i; });
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  });
+
+  // form (front-end only on this static page)
+  document.getElementById('formBtn').addEventListener('click', () => {
+    alert('Thank you — on the live site this submits to Acuvon. For now this is a front-end demo.');
+  });
+</script>
+</body>
+</html>
